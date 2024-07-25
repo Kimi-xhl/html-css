@@ -1,0 +1,174 @@
+/* * a:hover {
+  text-decoration: underline;
+} */
+
+.top {
+  display: flex;
+  height: 100px;
+  width: 100vw;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.topl {
+  align-self: flex-end;
+  font-size: 48px;
+}
+
+.topr {
+  align-self: flex-end;
+}
+
+.topr a {
+  text-decoration: none;
+  color: #2179d2;
+  font-size: 17px;
+}
+
+.topr a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  display: flex;
+  margin-top: 70px;
+  width: 100vw;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.main a:hover {
+  text-decoration: underline;
+}
+
+.p1 {
+  flex: 5;
+  align-self: center;
+}
+
+.p1 img {
+  display: flex;
+  margin: 0 auto;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.p1b {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.p1b button {
+  background-color: #2179d2;
+  border-style: none;
+  width: 130px;
+  height: 40px;
+  margin: 20px 10px;
+  border-radius: 30px;
+}
+
+.p1b a {
+  text-decoration: none;
+  color: #2179d2;
+  font-size: 18px;
+}
+
+.p2 {
+  flex: 5;
+  align-self: center;
+}
+
+.p2 img {
+  display: flex;
+  margin: 0 auto;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.p2b {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.p2b button {
+  background-color: #2179d2;
+  border-style: none;
+  width: 130px;
+  height: 40px;
+  margin: 20px 10px;
+  border-radius: 30px;
+}
+
+.p2b a {
+  text-decoration: none;
+  color: #2179d2;
+  font-size: 18px;
+}
+
+.p3 {
+  flex: 5;
+  align-self: center;
+}
+
+.p3 img {
+  display: flex;
+  margin: 0 auto;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.p3b {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.p3b button {
+  background-color: #2179d2;
+  border-style: none;
+  width: 130px;
+  height: 40px;
+  margin: 20px 10px;
+  border-radius: 30px;
+}
+
+.p3b a {
+  text-decoration: none;
+  color: #2179d2;
+  font-size: 18px;
+}
+
+.p4 {
+  flex: 5;
+  align-self: center;
+}
+
+.p4 img {
+  display: flex;
+  margin: 0 auto;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.p4b {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.p4b button {
+  background-color: #2179d2;
+  border-style: none;
+  width: 130px;
+  height: 40px;
+  margin: 20px 10px;
+  border-radius: 30px;
+}
+
+.p4b a {
+  text-decoration: none;
+  color: #2179d2;
+  font-size: 18px;
+}
