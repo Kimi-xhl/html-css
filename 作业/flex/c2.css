@@ -2,6 +2,10 @@
   text-decoration: underline;
 } */
 
+body{
+  margin: 0;
+}
+
 .top {
   display: flex;
   height: 100px;
@@ -39,6 +43,13 @@
 
 .main a:hover {
   text-decoration: underline;
+}
+
+
+.img-div{
+  height: 340px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .p1 {
