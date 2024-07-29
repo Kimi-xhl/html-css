@@ -10,6 +10,7 @@
   <body>
     <div class="top">
       <!-- ----------------------------------------------------------- -->
+
       <div class="top1">
         <img src="3l.png" alt="apple" />
         <a href="#">Store</a>
@@ -22,7 +23,12 @@
         <a href="#">Entertainment</a>
         <a href="#">Accessories</a>
         <a href="#">Support</a>
+        <div class="blur"></div>
+        <div class="nav">
+  
+        </div>
       </div>
+
       <!-- ------------------------------------------------------------------- -->
       <div class="top2">
         <div>
@@ -117,12 +123,16 @@
         ></span
       >
     </div>
-    <video controls class="video1">
-      <source
-        src="https://www.apple.com/105/media/us/ipad/2024/45762adb-901a-4726-8b0c-1f3ee092b09a/anim/welcome-hero/small.mp4#t=8.782882"
-        type="video/mp4"
-      />
-    </video>
+    <div class="video1">
+      <video autoplay muted loop   id="video1">
+        <source
+          src="https://www.apple.com/105/media/us/ipad/2024/45762adb-901a-4726-8b0c-1f3ee092b09a/anim/welcome-hero/small.mp4#t=8.782882"
+          type="video/mp4"
+        />
+      </video>
+      <div class="play-btn" onclick="videoPlay1()"></div>
+    </div>
+
     <span
       style="
         font-size: 45px;
@@ -168,3 +178,14 @@
     </div>
   </body>
 </html>
+<script>
+  function videoPlay1() {
+    video = document.getElementById('video1')
+    console.log([video.paused]);
+    if (video.paused) {
+      video.play()
+    } else {
+      video.pause()
+    }
+  }
+</script>
