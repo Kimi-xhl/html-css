@@ -8,20 +8,22 @@ body {
 }
 
 .cyber img,
-.cyber img::after {
+.cyber,
+.cyber::after {
   width: 700px;
   height: 400px;
   content: " ";
   position: relative;
 }
 
-.cyber img::after {
+.cyber::after {
   content: " ";
   position: absolute;
-  top: 0;
+  top: 500px;
   left: 0;
   background: url("https://static.cdprojektred.com/cms.cdprojektred.com/16x9_big/a2029ba1ec1b7ad4f9e95844eda13264dbc05e88-1280x720.jpg")
     no-repeat;
+  background-size: cover;
   width: 100%;
   height: 100%;
   --slice-0: inset(50% 50% 50% 50%);
@@ -30,11 +32,11 @@ body {
   --slice-3: inset(42% 21% 19% 64%);
   --slice-4: inset(55% 30% 20% 40%);
   --slice-5: inset(31% 73% 64% 4%);
-  clip-path: var(--slice-0);
+  /* clip-path: var(--slice-0); */
 }
 
-.cyber img:hover::after {
-  animation: cyber 1s steps(20);
+.cyber:hover::after {
+  animation: cyber 1s steps(2);
 }
 
 @keyframes cyber {
