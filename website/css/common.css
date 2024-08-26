@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --golden: rgb(200, 170, 110);
+  --blue: rgb(11, 196, 226);
+  --gray: rgb(153, 153, 153);
+  --darkGray: rgb(41, 41, 41);
+  --Black: rgb(10, 20, 40);
+  --white: #f9f9f9;
+  --bgc: #161f32;
+}
+
+body {
+  background-color: var(--bgc);
+}
+
+span {
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 15px;
+}
