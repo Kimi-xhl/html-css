@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 95px;
+}
+
+body {
+  background-color: #161f32;
+}
+
+.renektonContainer {
+  margin: 0 300px;
+  padding: 50px;
+}
+
+.championIntroduction {
+  height: 1100px;
+  background-image: url(https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renekton_0.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  padding: auto 200px;
+}
+
+.titleIntroduction h3 {
+  font-size: 50px;
+  color: gold;
+  margin: 20px 200px;
+}
+
+.titleIntroduction h1 {
+  color: white;
+  margin: 20px 200px;
+}
+
+.titleIntroduction p {
+  color: white;
+  margin: 20px 200px;
+}
+
+.championIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.role,
+.diffculty {
+  background-color: #161f32;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gold;
+  outline-offset: 20px;
+  outline: 1px solid gold;
+}
+
+.bottomA {
+  position: absolute;
+  width: 70%;
+  bottom: 30px;
+  left: 20px;
+  border-top: 3px solid gold;
+}
+
+.bottomA ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bottomA li {
+  margin-left: 50px;
+}
+
+.abilities {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.abilitiesLeft {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skillsIcon {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.skillsIcon div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.skillsIcon img {
+  margin-bottom: 8px;
+}
+
+.abilitiesRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 70px;
+}
+
+.abilitiesRight video {
+  width: 500px;
+  height: 450px;
+  user-select: none;
+  pointer-events: none;
+  border: 1px solid gold;
+  outline-offset: 20px;
+  outline: 1px solid gold;
+}
