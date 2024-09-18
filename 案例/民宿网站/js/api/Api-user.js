@@ -20,3 +20,29 @@ function LoginApi(username, password, callback) {
         }
     }
 }
+
+/**
+ * 用户注册Api
+ * @param {{
+ *  username: string
+ *  password: string
+ *  repetitionPassword: string
+ *  yonghuName: string
+ *  yonghuPhone: string
+ *  yonghuEmail: string
+ * }} data 注册数据
+ */
+function registerApi(data) {
+    const xml = new XMLHttpRequest()
+    xml.open('post',`${baseUrl}/yonghu/register`)
+    xml.setRequestHeader('Accept','application/json, text/plain, */*')
+    xml.send(JSON.stringify(data))
+    xml.onreadystatechange = function() {
+        if(xml.readyState === 4 && xml.status === 200) {
+            let response = JSON.parse(xml.response)
+            if(response.code == 500) {
+                showAlert(response.msg)
+            }
+        }
+    }
+}
