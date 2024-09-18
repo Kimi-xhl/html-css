@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/common.css">
+    <script src="tailwind.js"></script>
+    <script src="tailwindConfig.js"></script>
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+    <form action="#" method="post" class="space-y-4" id="loginForm">
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">用户名 </label>
+            <input required type="text" name="username" placeholder="请输入用户名"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500" />
+        </div>
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">密码 </label>
+            <!-- pattern="^[0-9]*$" title="请输入数字" -->
+            <input required type="password" name="password" placeholder="请输入密码"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500" />
+        </div>
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded focus:outline-none focus:shadow-outline">登录</button>
+
+    
+
+
+    </form>
+</body>
+<script src="js/common.js"></script>
+<script src="js/api/Api-user.js"></script>
+<script src="js/index.js"></script>
+
+</html>
