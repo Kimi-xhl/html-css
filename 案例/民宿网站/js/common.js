@@ -1,5 +1,10 @@
-const baseUrl = 'http://175.178.249.61:8081/minsuguanliw'
+const baseUrl = '/api'
 
+
+/**
+ * 信息提示
+ * @param {string} message 
+ */
 function showAlert(message) {
     const modalList = document.querySelectorAll('.cu-modal')
     const modal = document.createElement('div')
@@ -27,4 +32,13 @@ function showAlert(message) {
         }, 500)
     }
 
+}
+
+/**
+ * 返回上页
+ */
+function goBack() {
+    console.log('ddd');
+    
+    window.history.go(-1)
 }
