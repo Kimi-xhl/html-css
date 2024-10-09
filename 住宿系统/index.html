@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/tailwind.js"></script>
+    <script src="./js/common.js"></script>
+    <link rel="stylesheet" href="./css/output.css">
+    <link rel="stylesheet" href="./css/animate.css" />
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body class="bg-gray-500 h-screen flex flex-col items-center justify-center">
+    <h1 class="text-5xl mb-32">民宿管理系统</h1>
+    <form action="#" id="form">
+        <div>
+            <label for="username" class="block text-base">username</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label for="password" class="block text-base">password</label>
+            <input type="password" name="password">
+        </div>
+        <button type="submit" class="block bg-cyan-500 border radius hover:bg-cyan-100 w-1/2 mt-2 mx-auto">登录</button>
+    </form>
+</body>
+<script src="./api/api-user.js"></script>
+<script src="./js/index.js"></script>
+
+</html>

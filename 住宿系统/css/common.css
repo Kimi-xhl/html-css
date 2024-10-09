@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.a-modal{
+    position: fixed;
+    top: 20px;
+    left: calc(50%-100px);
+    border-radius: 8px;
+    background-color: white;
+    height: 35px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 10px #646161ef;
+    animation-duration: 0.5s;
+}
+
