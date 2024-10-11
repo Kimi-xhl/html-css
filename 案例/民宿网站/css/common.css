@@ -21,3 +21,28 @@
     animation-duration: 0.5s;
 }
 
+
+.checkbox-selectedAll {
+    background-color: aquamarine;
+}
+
+
+.checkbox-notSelected {
+    background-color: white;
+}
+
+.checkbox-selected {
+    position: relative;
+    background-color: aquamarine;
+}
+
+.checkbox-selected::after{
+    content: '';
+    width: 80%;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    background-color: white;
+}

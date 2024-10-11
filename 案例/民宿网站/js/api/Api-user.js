@@ -123,3 +123,31 @@ function getSessionApi(callback) {
     }
   }
 }
+
+
+function getAdminListApi(callback) {
+  const xml = new XMLHttpRequest()
+  xml.open('GET', `${baseUrl}/users/page`)
+  xml.setRequestHeader('Token', localStorage.getItem('Token'))
+  xml.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+  xml.setRequestHeader('Accept', 'application/json, text/plain, */*')
+  xml.send()
+  xml.onreadystatechange = function () {
+    if (xml.readyState === 4 && xml.status === 200) {
+      let response = JSON.parse(xml.response)
+      if (response.code == 401) {
+        showAlert(response.msg)
+        // setTimeout(function() {
+        //   window.location.href = '/index.html'
+        // },1000)
+      }
+      if (response.code == 500) {
+        showAlert(response.msg)
+      }
+      if (response.code === 0) {
+        console.log(response);
+        callback(response.data)
+      }
+    }
+  }
+}

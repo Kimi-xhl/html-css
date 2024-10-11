@@ -12,16 +12,136 @@
   <script src="../js/common.js"></script>
 </head>
 
-<body class="bg-gray-100 h-screen ">
+<body class="bg-gray-100 h-screen">
   <header class="bg-indigo-700 h-12"></header>
   <div class="flex" style="height: calc(100vh - 3rem);">
     <aside class="w-56 bg-gray-600 h-full"></aside>
-    <main class="h-full">
-        管理员管理
+    <main class="h-full p-4">
+      <h1 class="text-xl font-bold mb-4">管理员管理</h1>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+          <thead>
+            <tr class="bg-indigo-600 text-white">
+              <th class="py-2 px-4">
+                <div 
+                id="selectAll" 
+                style="width: 20px;height: 20px;border-radius: 3px;border: 1px #ccc solid;" class="checkbox-notSelected">
+                </div>
+              </th>
+              <th class="py-2 px-4">索引</th>
+              <th class="py-2 px-4">用户名</th>
+              <th class="py-2 px-4">密码</th>
+              <th class="py-2 px-4">角色</th>
+              <th class="py-2 px-4">操作</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+      </div>
+
     </main>
+    <button onclick="getSelectedValues()">ddd</button>
   </div>
 </body>
 <script src="../js/api/Api-user.js"></script>
 <script src="../js/data/menu.js"></script>
+<script>
+  getAdminListApi(drawTable)
+
+  let tableList = []
+  let selectedValueList = []
+
+
+
+
+  document.getElementById('selectAll').addEventListener('click', () => {
+    if(selectedValueList.length === 0) {
+      document.querySelectorAll('input[name="check"]').forEach((item) => {
+        item.checked = true
+      })
+      selectedValueList = []
+      tableList.forEach(item => {
+        selectedValueList.push(String(item.id))
+      })
+      console.log([document.getElementById('selectAll')]);
+      
+      document.getElementById('selectAll').className = 'checkbox-selectedAll'
+    }else if(selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
+      document.querySelectorAll('input[name="check"]').forEach((item) => {
+        item.checked = true
+      })
+      selectedValueList = []
+      tableList.forEach(item => {
+        selectedValueList.push(String(item.id))
+      })
+      document.getElementById('selectAll').className = 'checkbox-selectedAll'
+    }else if(selectedValueList.length === tableList.length && tableList.length != 0) {
+      document.querySelectorAll('input[name="check"]').forEach((item) => {
+        item.checked = false
+      })
+      selectedValueList = []
+      document.getElementById('selectAll').className = 'checkbox-notSelected'  
+    }
+
+
+    console.log(selectedValueList,'selectedValueList');
+
+  })
+
+  function drawTable(res) {
+    console.log(res);
+    tableList = res.list
+    const tbody = document.querySelector('tbody')
+    let htmlString = ""
+
+    res.list.forEach((item) => {
+      htmlString += `  
+      <tr class="hover:bg-gray-100">  
+        <td class="border px-4 py-2">
+            <input type="checkbox" name="check" value="${item.id}" onchange="changeCheckbox(this)">
+        </td>  
+        <td class="border px-4 py-2">${item.id}</td>  
+        <td class="border px-4 py-2">${item.username}</td>  
+        <td class="border px-4 py-2">${item.password}</td>  
+        <td class="border px-4 py-2">${item.role}</td>  
+                <td class="border px-4 py-2">  
+          ${localStorage.getItem('buttons').includes('查看') ? `  
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded focus:outline-none focus:shadow-outline">查看</button>  
+          ` : ''}  
+        </td> 
+      </tr>`
+    });
+    tbody.innerHTML = htmlString
+
+
+
+  }
+
+
+  function changeCheckbox(target) {
+    if (target.checked) {
+      selectedValueList.push(target.value)
+    } else {
+      selectedValueList.splice(selectedValueList.indexOf(target.value),1)
+    }
+
+
+    if(selectedValueList.length === 0) {
+      document.getElementById('selectAll').className = 'checkbox-notSelected'
+    }else if(selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
+      document.getElementById('selectAll').className = 'checkbox-selected'
+    }else if(selectedValueList.length === tableList.length && tableList.length != 0) {
+      document.getElementById('selectAll').className = 'checkbox-selectedAll'  
+    }
+
+    console.log(selectedValueList);
+  }
+  
+</script>
 
 </html>

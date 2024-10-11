@@ -1,7 +1,6 @@
 const menu = {
 	list() {
-		return [
-			{
+		return [{
 				"backMenu": [{
 					"child": [{
 						"buttons": [
@@ -158,7 +157,7 @@ const menu = {
 
 
 
-			
+
 			{
 				"backMenu": [{
 					"child": [{
@@ -224,10 +223,8 @@ const menu = {
 	}
 }
 
-
 const menuList = menu.list()
-console.log(menuList);
-getSessionApi(function (role) {
+function renderAisde(role) {
 	const aside = document.querySelector('aside')
 	let menuContent
 	if (role === '管理员') {
@@ -244,17 +241,25 @@ getSessionApi(function (role) {
 			htmlString += `<span>${item.menu}</span>`
 			htmlString += `<ul class="ml-5">`
 			item.child.forEach(function (submenu) {
-				htmlString += `<li><a href="${submenu.router ? submenu.router : '#'}">${submenu.menu}</a></li>`
+				htmlString += `<li><a href="#" onclick="goPage('${submenu.router}','${submenu.buttons}')">${submenu.menu}</a></li>`
 			})
 			htmlString += `</ul>`
 		} else {
-			htmlString += `<a href="${item.router ? item.router : '#'}">${item.menu}</a>`
+			htmlString += `<a href="#" onclick="goPage('${item.router}','${item.child[0].buttons}')">${item.menu}</a>`
 		}
 		htmlString += `</li>`
 	});
 	htmlString += `</ul>`
-	
+
 
 	aside.innerHTML = htmlString
+}
 
-})
+getSessionApi(renderAisde)
+
+
+function goPage(url, buttons) {
+	localStorage.setItem('buttons', buttons)
+	window.location.href = url
+
+}
