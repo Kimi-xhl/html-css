@@ -24,9 +24,8 @@
           <thead>
             <tr class="bg-indigo-600 text-white">
               <th class="py-2 px-4">
-                <div 
-                id="selectAll" 
-                style="width: 20px;height: 20px;border-radius: 3px;border: 1px #ccc solid;" class="checkbox-notSelected">
+                <div id="selectAll" style="width: 20px;height: 20px;border-radius: 3px;border: 1px #ccc solid;"
+                  class="checkbox-notSelected">
                 </div>
               </th>
               <th class="py-2 px-4">索引</th>
@@ -69,46 +68,44 @@
 <script src="../js/api/Api-user.js"></script>
 <script src="../js/data/menu.js"></script>
 <script>
-
-
   let tableList = []
   let selectedValueList = []
 
   let totalPage = 0
   const pageObj = {
     page: 1,
-    limit: 1
+    limit: 10
   }
-  
-  getAdminListApi(pageObj,drawTable)
 
-  
+  getAdminListApi(pageObj, drawTable)
+
+
 
   function onSetPageInput(e) {
-    if(e.value !== '') {
-      if(e.value > totalPage) {
+    if (e.value !== '') {
+      if (e.value > totalPage) {
         e.value = totalPage
       }
-      if(e.value < 1) {
+      if (e.value < 1) {
         e.value = 1
       }
     }
   }
 
   function setPage(e) {
-    if(e == 'prev') {
-      pageObj.page --
-    }else if(e == 'next') {
-      pageObj.page ++
-    }else if(e == 'go') {
-      
-      if(document.querySelector('input#setPageInput').value !== '') {
-        pageObj.page = document.querySelector('input#setPageInput').value 
+    if (e == 'prev') {
+      pageObj.page--
+    } else if (e == 'next') {
+      pageObj.page++
+    } else if (e == 'go') {
+
+      if (document.querySelector('input#setPageInput').value !== '') {
+        pageObj.page = document.querySelector('input#setPageInput').value
       }
-      
+
     }
 
-    getAdminListApi(pageObj,drawTable)
+    getAdminListApi(pageObj, drawTable)
   }
 
 
@@ -116,12 +113,48 @@
     console.log(e.value);
     pageObj.page = 1
     pageObj.limit = e.value
-    getAdminListApi(pageObj,drawTable)
+    getAdminListApi(pageObj, drawTable)
+  }
+
+  function updateData() {
+
+  }
+
+  function removeData() {
+    createDialog({
+      title: '删除',
+      content: `
+      <p>您是否确定要删除?</p>
+    `,
+    ok: removeDialog
+    })
+  }
+
+  function readData(index) {
+    createDialog({
+      title: '修改',
+      content: `
+    <div>
+      <label for="username" class="block text-sm font-medium text-gray-700">用户名 </label>
+      <input required type="text" name="username" placeholder="请输入用户名"
+        value="${tableList[index].username}"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500" />
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700">密码 </label>
+      <!-- pattern="^[0-9]*$" title="请输入数字" -->
+      <input required type="text" name="password" placeholder="请输入密码"
+        value="${tableList[index].password}"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500" />
+    </div>
+    `,
+    ok: removeDialog
+    })
   }
 
 
   document.getElementById('selectAll').addEventListener('click', () => {
-    if(selectedValueList.length === 0) {
+    if (selectedValueList.length === 0) {
       document.querySelectorAll('input[name="check"]').forEach((item) => {
         item.checked = true
       })
@@ -130,9 +163,9 @@
         selectedValueList.push(String(item.id))
       })
       console.log([document.getElementById('selectAll')]);
-      
+
       document.getElementById('selectAll').className = 'checkbox-selectedAll'
-    }else if(selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
+    } else if (selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
       document.querySelectorAll('input[name="check"]').forEach((item) => {
         item.checked = true
       })
@@ -141,16 +174,16 @@
         selectedValueList.push(String(item.id))
       })
       document.getElementById('selectAll').className = 'checkbox-selectedAll'
-    }else if(selectedValueList.length === tableList.length && tableList.length != 0) {
+    } else if (selectedValueList.length === tableList.length && tableList.length != 0) {
       document.querySelectorAll('input[name="check"]').forEach((item) => {
         item.checked = false
       })
       selectedValueList = []
-      document.getElementById('selectAll').className = 'checkbox-notSelected'  
+      document.getElementById('selectAll').className = 'checkbox-notSelected'
     }
 
 
-    console.log(selectedValueList,'selectedValueList');
+    console.log(selectedValueList, 'selectedValueList');
 
   })
 
@@ -161,7 +194,7 @@
     const tbody = document.querySelector('tbody')
     let htmlString = ""
 
-    res.list.forEach((item) => {
+    res.list.forEach((item,index) => {
       htmlString += `  
       <tr class="hover:bg-gray-100">  
         <td class="border px-4 py-2">
@@ -173,8 +206,15 @@
         <td class="border px-4 py-2">${item.role}</td>  
                 <td class="border px-4 py-2">  
           ${localStorage.getItem('buttons').includes('查看') ? `  
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded focus:outline-none focus:shadow-outline">查看</button>  
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded focus:outline-none focus:shadow-outline" onclick="readData(${index})">查看</button>  
           ` : ''}  
+          ${localStorage.getItem('buttons').includes('修改') ? `  
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded focus:outline-none focus:shadow-outline">修改</button>  
+          ` : ''}
+          
+          ${localStorage.getItem('buttons').includes('修改') ? `  
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded focus:outline-none focus:shadow-outline" onclick="removeData(${index})">删除</button>  
+          ` : ''} 
         </td> 
       </tr>`
     });
@@ -183,7 +223,7 @@
     const pageControl = document.querySelector('#pageControl')
     document.querySelector('#pageControl > p').innerHTML = `共${res.total}条,${res.currPage}`
     htmlString = ""
-    
+
     document.querySelector('.pageBtnGroup').innerHTML = `
     <button 
       class="${pageObj.page == 1 ? 'bg-gray-200': 'bg-blue-500 hover:bg-blue-700'}  font-bold px-2 py-1 rounded" 
@@ -200,7 +240,7 @@
       </button>
       
     
-    `    
+    `
 
 
 
@@ -211,21 +251,20 @@
     if (target.checked) {
       selectedValueList.push(target.value)
     } else {
-      selectedValueList.splice(selectedValueList.indexOf(target.value),1)
+      selectedValueList.splice(selectedValueList.indexOf(target.value), 1)
     }
 
 
-    if(selectedValueList.length === 0) {
+    if (selectedValueList.length === 0) {
       document.getElementById('selectAll').className = 'checkbox-notSelected'
-    }else if(selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
+    } else if (selectedValueList.length > 0 && selectedValueList.length < tableList.length) {
       document.getElementById('selectAll').className = 'checkbox-selected'
-    }else if(selectedValueList.length === tableList.length && tableList.length != 0) {
-      document.getElementById('selectAll').className = 'checkbox-selectedAll'  
+    } else if (selectedValueList.length === tableList.length && tableList.length != 0) {
+      document.getElementById('selectAll').className = 'checkbox-selectedAll'
     }
 
     console.log(selectedValueList);
   }
-  
 </script>
 
 </html>
