@@ -125,9 +125,23 @@ function getSessionApi(callback) {
 }
 
 
-function getAdminListApi(callback) {
+/**
+ * 获取管理员列表 
+ * @param {{currPage:Number, limit:Number }} pageObj 
+ * @param {*} callback 
+ */
+function getAdminListApi(pageObj,callback) {
+  let url = `${baseUrl}/users/page?`
+
+  Object.keys(pageObj).forEach(item => {
+    if(pageObj[item]) {
+      url += `${item}=${pageObj[item]}&`
+    }
+  })
+
+
   const xml = new XMLHttpRequest()
-  xml.open('GET', `${baseUrl}/users/page`)
+  xml.open('GET', url)
   xml.setRequestHeader('Token', localStorage.getItem('Token'))
   xml.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
   xml.setRequestHeader('Accept', 'application/json, text/plain, */*')

@@ -41,22 +41,83 @@
 
           </tbody>
         </table>
+        <div class="flex items-center" id="pageControl">
+          <p class="mr-3">共0条</p>
+          <select name="pageSize" onchange="onPageSizeChange(this)" class="mr-3">
+            <option value="1">1条/页</option>
+            <option value="10">10条/页 </option>
+          </select>
+
+          <div class="pageBtnGroup">
+            <!-- <button class="bg-blue-500 hover:bg-blue-700 font-bold px-2 py-1 rounded">></button> -->
+          </div>
+
+          <div class="setCurrPage">
+            前往
+            <input type="number" value="1" min="1" id="setPageInput" max="1" oninput="onSetPageInput(this)">
+            页
+            <button class="underline" onclick="setPage('go')">Go</button>
+
+          </div>
+        </div>
 
       </div>
 
     </main>
-    <button onclick="getSelectedValues()">ddd</button>
   </div>
 </body>
 <script src="../js/api/Api-user.js"></script>
 <script src="../js/data/menu.js"></script>
 <script>
-  getAdminListApi(drawTable)
+
 
   let tableList = []
   let selectedValueList = []
 
+  let totalPage = 0
+  const pageObj = {
+    page: 1,
+    limit: 1
+  }
+  
+  getAdminListApi(pageObj,drawTable)
 
+  
+
+  function onSetPageInput(e) {
+    if(e.value !== '') {
+      if(e.value > totalPage) {
+        e.value = totalPage
+      }
+      if(e.value < 1) {
+        e.value = 1
+      }
+    }
+  }
+
+  function setPage(e) {
+    if(e == 'prev') {
+      pageObj.page --
+    }else if(e == 'next') {
+      pageObj.page ++
+    }else if(e == 'go') {
+      
+      if(document.querySelector('input#setPageInput').value !== '') {
+        pageObj.page = document.querySelector('input#setPageInput').value 
+      }
+      
+    }
+
+    getAdminListApi(pageObj,drawTable)
+  }
+
+
+  function onPageSizeChange(e) {
+    console.log(e.value);
+    pageObj.page = 1
+    pageObj.limit = e.value
+    getAdminListApi(pageObj,drawTable)
+  }
 
 
   document.getElementById('selectAll').addEventListener('click', () => {
@@ -95,6 +156,7 @@
 
   function drawTable(res) {
     console.log(res);
+    totalPage = res.totalPage
     tableList = res.list
     const tbody = document.querySelector('tbody')
     let htmlString = ""
@@ -117,11 +179,33 @@
       </tr>`
     });
     tbody.innerHTML = htmlString
+    document.querySelector('input#setPageInput').max = res.totalPage
+    const pageControl = document.querySelector('#pageControl')
+    document.querySelector('#pageControl > p').innerHTML = `共${res.total}条,${res.currPage}`
+    htmlString = ""
+    
+    document.querySelector('.pageBtnGroup').innerHTML = `
+    <button 
+      class="${pageObj.page == 1 ? 'bg-gray-200': 'bg-blue-500 hover:bg-blue-700'}  font-bold px-2 py-1 rounded" 
+      ${pageObj.page == 1 ? 'disabled': ''}  
+      onclick="setPage('prev')" >
+        &lt;
+      </button>
+    
+    <button 
+      class="${pageObj.page == res.totalPage ? 'bg-gray-200': 'bg-blue-500 hover:bg-blue-700'}  font-bold px-2 py-1 rounded" 
+      ${pageObj.page == res.totalPage ? 'disabled': ''}  
+      onclick="setPage('next')" >
+        &gt;
+      </button>
+      
+    
+    `    
+
 
 
 
   }
-
 
   function changeCheckbox(target) {
     if (target.checked) {
