@@ -51,7 +51,8 @@ const menu = {
 							],
 							"menu": "房间信息管理",
 							"menuJump": "列表",
-							"tableName": "fangjian"
+							"tableName": "fangjian",
+							"router": '/page/roomManage/roomInfoManage.html'
 						},
 						{
 							"buttons": [

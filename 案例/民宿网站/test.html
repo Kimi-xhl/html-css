@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页示例 - Tailwind CSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+</head>
+<style>
+    .seat {
+        width: 10px;
+        height: 10px;
+        margin: 10px;
+        background-color: bisque;
+    }
+
+    ul {
+        display: flex;
+    }
+    img::after{
+        content: '';
+    }
+</style>
+
+<body class="bg-gray-100">
+    <div class="container">
+
+
+
+    </div>
+
+  
+
+    <script>
+        const seat = [
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, false, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, false, null],
+            [null, null, null, null, null, null, null, null]
+        ]
+
+        const selected = []
+
+        for (let i = 0; i < seat.length; i++) {
+            let ul = $('<ul>')
+
+
+            for (let j = 0; j < seat[i].length; j++) {
+                let div = $('<div>').addClass('seat').attr('data-x', j).attr('data-y', i)
+                if (seat[i][j] === null) {
+
+                } else if (seat[i][j] === false) {
+                    div.css('background-color', 'red')
+                }
+                ul.append(div)
+            }
+            $('.container').append(ul)
+
+        }
+
+
+        $('.seat').click(function (e) {
+            console.log(e);
+            console.log($(e.target).attr('data-x'), $(e.target).attr('data-y'));
+            if(seat[$(e.target).attr('data-y')][$(e.target).attr('data-x')] === false) {
+                console.log('选不了');
+                return
+            }
+
+
+            if (selected.includes(`${$(e.target).attr('data-x')},${$(e.target).attr('data-y')}`)) {
+                let index = selected.indexOf(`${$(e.target).attr('data-x')},${$(e.target).attr('data-y')}`)
+                selected.splice(index, 1)
+                $(e.target).css('background-color', 'bisque')
+            } else {
+                selected.push(`${$(e.target).attr('data-x')},${$(e.target).attr('data-y')}`)
+                console.log(selected);
+                $(e.target).css('background-color', 'blue')
+            }
+
+
+        })
+    </script>
+
+</body>
+
+</html>

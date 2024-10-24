@@ -165,3 +165,59 @@ function getAdminListApi(pageObj,callback) {
     }
   }
 }
+
+
+/**
+ * 
+ * @param {{username:string, password:string }} userObj 
+ * @param {Function | undefined} callback 
+ */
+function createAdminUserApi(userObj,callback) {
+  const xml = new XMLHttpRequest()
+  xml.open('post', `${baseUrl}/users/save`)
+  xml.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+  xml.setRequestHeader('Token', localStorage.getItem('Token'))
+  xml.setRequestHeader('Accept', 'application/json, text/plain, */*')
+  xml.send(JSON.stringify(userObj))
+  xml.onreadystatechange = function () {
+    if (xml.readyState === 4 && xml.status === 200) {
+      let response = JSON.parse(xml.response)
+      if (response.code == 500) {
+        showAlert(response.msg)
+      }
+      if (response.code === 0) {
+        if(callback !== undefined) {
+          callback()
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * 
+ * @param {Array<Number>} userIdArray 
+ * @param {Function | undefined} callback 
+ */
+function deleteAdminUserApi(userIdArray,callback) {
+  const xml = new XMLHttpRequest()
+  xml.open('post', `${baseUrl}/users/delete`)
+  xml.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+  xml.setRequestHeader('Accept', 'application/json, text/plain, */*')
+  xml.setRequestHeader('Token', localStorage.getItem('Token'))
+  xml.send(JSON.stringify(userIdArray))
+  xml.onreadystatechange = function () {
+    if (xml.readyState === 4 && xml.status === 200) {
+      let response = JSON.parse(xml.response)
+      if (response.code == 500) {
+        showAlert(response.msg)
+      }
+      if (response.code === 0) {
+        if(callback !== undefined) {
+          callback()
+        }
+      }
+    }
+  }
+}

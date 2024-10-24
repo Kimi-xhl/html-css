@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul,li{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        .v-pagination{
+            display:flex;
+            align-items: center;
+        }
+        .v-pagination .pagination-page{
+            display:flex;
+            align-items: center;
+            margin-left:40px;
+        }
+        .v-pagination .page{
+            height: 28px;
+            line-height: 28px;
+            margin: 0 5px;
+            background-color: #f4f4f5;
+            color: #606266;
+            min-width: 30px;
+            text-align: center;
+            border-radius: 2px;
+            font-size:13px;
+            cursor: pointer;
+        }
+        .v-pagination .page.selected{
+            background-color: #409eff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 隐藏的数据总数 -->
+    <span class="data-total" style="display:none">123</span>
+    <div class="v-pagination">
+        <span class="total">总数为：0</span>
+        <ul class="pagination-page">
+            
+        </ul>
+    </div>    
+    <script>
+        // 获取URL上的参数，返回参数对象
+        function getURLParams(url=""){
+          const result = {};
+          if(url.includes('?') === true){
+            url.split('?')[1].split('&').map(item=>{
+              const [key,value] = item.split('=');
+              result[key] = value;
+            });
+          }
+          return result;
+        }
+        // 将对象装换成url上的查询参数
+        function rechangeURL(url='',json={}){
+            let path = url.split('?')[0];
+            Object.keys(json).forEach((key,index)=>{
+                console.log(key,index);
+                path += index === 0 ? '?' : '&';
+                path += `${key}=${json[key]}`;
+            });
+            return path;
+        }
+ 
+        // 根据数据总数、每页大小、当前的下标展示不同的分页
+        function generatePage(total = 0,pageSize = 10,currentPage = 1){
+            // 总条数
+            const theTotal = Number(total);
+            // 每页大小
+            const thePageSize = Number(pageSize);
+            // 当前页
+            const theCurrentPage = Number(currentPage);
+            if(isNaN(theTotal) || isNaN(thePageSize) || isNaN(theCurrentPage)){
+                return '传入的参数必须为数字，或者字符串类型的数字';
+            }
+            // 总页数
+            const totalPage = Math.ceil(theTotal / thePageSize) || 1;
+            // 当前下标减1的元素
+            let html = `<li class="page" index="${theCurrentPage - 1 < 1 ? 1 : theCurrentPage - 1}"><</li>`;
+            if(totalPage <= 5){
+                // 当总页数不满5页时
+                for(let i = 1 ;i <= totalPage; i++){
+                    if(i === theCurrentPage){
+                        html += `<li class="page selected" index="${i}">${i}</li>`;
+                    }else{
+                        html += `<li class="page" index="${i}">${i}</li>`;
+                    }
+                }
+            }else{
+                // 当总页数超过5页时
+                if(theCurrentPage - 2 > 1){
+                    // 在最开始增加【第1页】和【...页】
+                    html += `
+                        <li class="page" index="1">1</li>
+                        <li class="page" index="${theCurrentPage - 5 < 1 ? 1 : theCurrentPage - 5}">...</li>
+                    `
+                }
+                // 具体展示的开头
+                const begin = theCurrentPage - 2 < 1 ? 1: theCurrentPage - 2;
+                // 具体展示的结尾
+                const end = theCurrentPage + 2 > totalPage ? totalPage : theCurrentPage + 2;
+                for(let i =  begin;i <= end; i++){
+                    if(i === theCurrentPage){
+                        html += `<li class="page selected" index="${i}">${i}</li>`;
+                    }else{
+                        html += `<li class="page" index="${i}">${i}</li>`;
+                    }
+                }
+                if(theCurrentPage + 2 < totalPage){
+                    // 在最后增加【...页】和【最后页】
+                    html += `
+                        <li class="page" index="${theCurrentPage + 5 > totalPage ? totalPage : theCurrentPage + 5}">...</li>
+                        <li class="page" index="${totalPage}">${totalPage}</li>
+                    `
+                }
+            }
+            // 当前下标加1的元素
+            html += `<li class="page" index="${theCurrentPage + 1 > totalPage ? totalPage : theCurrentPage + 1}">></li>`;
+            // 加载到DOM中
+            document.querySelector('.v-pagination .pagination-page').innerHTML = html;
+        }
+ 
+        window.addEventListener('load',()=>{
+            // 使用事件委托绑定分页点击事件
+            document.querySelector('.v-pagination .pagination-page').addEventListener('click',function(e){
+                const {nodeName,innerText} = e.target;
+                const currentPage = e.target.getAttribute('index');
+                if(nodeName === 'LI'){
+                    // 触发的是分页的事件
+                    location.href=rechangeURL(location.href,{...params,_pi:currentPage});
+                }
+            });
+ 
+        });
+ 
+        // 初始化，获取url上传递过来的当前页和分页大小
+        const params = getURLParams(location.href);
+        // 在DOM上获取分页大小
+        const total = document.querySelector('.data-total').innerText;
+        // 赋值分页总数
+        document.querySelector('.total').innerText = `总数为：${total}`;
+        // 生成分页元素
+        generatePage(total,params._ps,params._pi);
+        console.log(total,params);
+    </script>
+</body>
