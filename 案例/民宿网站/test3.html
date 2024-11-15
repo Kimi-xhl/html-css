@@ -1,78 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="node_modules/jquery/dist/jquery.js"></script>
 </head>
-
 <body>
-    <ul id="men">
-        
-    </ul>
-</body>
-<script>
-    const menu = [
-        {
-            router: '/test.html',
-            name: '测试',
-            children: [],
-            buttons: ['add', 'del', 'update']
-        },
-        {
-            router: '/test.html',
-            name: '信息管理',
-            children: [{
-                    router: '/',
-                    name: '信息管理的页面1',
-                    buttons: ['add', 'del', 'update']
-                },
-                {
-                    router: '/',
-                    name: '信息管理的页面1',
-                    buttons: ['add', 'del', 'update']
-                }
-            ],
-            buttons: ['add', 'del', 'update']
-        },
-        {
-            router: '/test.html',
-            name: '测试2',
-            children: [
-                 {
-                    router: '/',
-                    name: '测试2的页面1',
-                    buttons: ['add', 'del', 'update']
-                }
-            ],
-            buttons: ['add', 'del', 'update']
-        },
-        {
-            router: '/test.html',
-            name: '测试3',
-            children: [],
-            buttons: ['add', 'del', 'update']
-        },
-    ]
-
-    console.log(menu);
-    menu.forEach((top) => {
-        let li = $('<li>').text(top.name)
-        $('#men').append(li)
-
-        if(top.children && top.children.length > 0) {
-            let childrenUl = $('<ul>')
-            li.append(childrenUl)        
-
-            top.children.forEach((item) => {
-                childrenUl.append($('<li>').text(item.name))
-            })
-        }
-
-    })
     
-</script>
+</body>
 
+<script>
+    
+  
+    
+
+
+
+</script>
 </html>
