@@ -137,28 +137,6 @@ const menu = {
 				"roleName": "管理员",
 				"tableName": "users"
 			},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			{
 				"backMenu": [{
 					"child": [{
@@ -264,3 +242,5 @@ function goPage(url, buttons) {
 	window.location.href = url
 
 }
+
+
